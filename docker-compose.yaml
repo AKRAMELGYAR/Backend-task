@@ -1,0 +1,21 @@
+version : 'latest'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: Backend-Task-MongoDB
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  backend:
+    build: .
+    container_name: Backend-Task-API
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    volumes:
+      - ./config/.env:/usr/src/app/config/.env
